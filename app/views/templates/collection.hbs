@@ -1,0 +1,52 @@
+
+{{#each blocks}}
+
+  <div class="block">
+
+  {{#if_equals class "Image"}}
+    <!-- IMAGE -->
+    <div class="info" href="{{image.original.url}}">
+      <p>{{connected_at}}</p>
+      {{{description_html}}}
+    </div>
+    <img src="{{image.display.url}}" onload="$(this).fadeIn(1000);" />
+  {{/if_equals}}
+
+  {{#if_equals class "Link"}}
+    {{debug}}
+
+    {{#if_equals source.provider.name "Twitter"}}
+      <div class="square twitter"> 
+        <div class="tweet-container">
+          <div class="inner">
+            <div class="tweet">{{{description_html}}}</div>
+            <div class="tweeter">- {{{twitter_handle_link}}}</div>
+          </div>
+        </div>
+      </div>
+    {{else}}
+      <a href="{{source.url}}" class="external url" target="_blank">
+        <h2>{{title}}</h2>
+      </a>
+    {{/if_equals}}
+    <!-- LINK -->
+    
+  {{/if_equals}}
+
+  {{#if_equals class "Attachment"}}
+    {{#if_equals attachment.extension "mp3"}}
+      <div class="square sound"> 
+        <a href="{{attachment.url}}">&nbsp;</a>
+        <span class="sound-title">{{title}}</span>
+      </div>
+    {{/if_equals}}
+  {{/if_equals}}
+
+  {{#if_equals class "Media"}}
+    <!-- MEDIA -->
+    {{{embed.html}}}
+  {{/if_equals}}
+  
+  </div>
+
+{{/each}}

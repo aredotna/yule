@@ -1,0 +1,1 @@
+module.exports = class Block extends Backbone.Model
