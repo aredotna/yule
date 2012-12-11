@@ -7,7 +7,7 @@ module.exports = class Router extends Backbone.Router
     '' : 'home'
     ':slug': 'channel'
 
-  home: -> @channel 'nada-miami'
+  home: -> @channel 'arena-holiday-party-2012'
   
   channel: (slug) ->
     @base_channel = new Channel id: slug
@@ -20,9 +20,3 @@ module.exports = class Router extends Backbone.Router
         collection  : @base_channel.contents
         
       $('#content').html @collectionView.render().el # render collectionView into #content
-
-      soundManager.setup
-        url: './swf/'
-        flashVersion: 9
-        onready: -> 
-          inlinePlayer = new InlinePlayer()

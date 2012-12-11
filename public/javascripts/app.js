@@ -78,7 +78,7 @@ window.require.define({"application": function(exports, require, module) {
   var App;
 
   App = {
-    title: 'NADA Pool Party',
+    title: 'Arena Holidays / 2012',
     initialize: function() {
       var HomeView, Router;
       Router = require('lib/router');
@@ -227,7 +227,7 @@ window.require.define({"lib/router": function(exports, require, module) {
     };
 
     Router.prototype.home = function() {
-      return this.channel('nada-miami');
+      return this.channel('arena-holiday-party-2012');
     };
 
     Router.prototype.channel = function(slug) {
@@ -241,15 +241,7 @@ window.require.define({"lib/router": function(exports, require, module) {
           model: _this.base_channel,
           collection: _this.base_channel.contents
         });
-        $('#content').html(_this.collectionView.render().el);
-        return soundManager.setup({
-          url: './swf/',
-          flashVersion: 9,
-          onready: function() {
-            var inlinePlayer;
-            return inlinePlayer = new InlinePlayer();
-          }
-        });
+        return $('#content').html(_this.collectionView.render().el);
       });
     };
 
@@ -398,8 +390,8 @@ window.require.define({"views/collection_view": function(exports, require, modul
     CollectionView.prototype.id = 'collection';
 
     CollectionView.prototype.initialize = function() {
-      document.title = "" + (this.model.get('title')) + " - Friends x Family";
-      return this.template = require("./templates/collection");
+      this.template = require("./templates/collection");
+      return this.collection.on('add', this.render);
     };
 
     CollectionView.prototype.render = function() {
@@ -407,26 +399,9 @@ window.require.define({"views/collection_view": function(exports, require, modul
         channel: this.model.toJSON(),
         blocks: this.collection.toJSON()
       }));
-      this.replacePossibleChannels();
-      return this;
-    };
+      setTimeout;
 
-    CollectionView.prototype.replacePossibleChannels = function() {
-      var channels;
-      channels = _.filter(this.collection.models, function(model) {
-        return model.get('class') === "Channel";
-      });
-      return $('.possible-channel').each(function(i) {
-        var a, match, title;
-        title = $(this).text();
-        match = _.find(channels, function(c) {
-          return c.get('title') === title;
-        });
-        if (match) {
-          a = $('<a/>').attr('href', "#/" + (match.get('slug')));
-          return $(this).wrap(a);
-        }
-      });
+      return this;
     };
 
     return CollectionView;
@@ -683,7 +658,7 @@ window.require.define({"views/templates/home": function(exports, require, module
     var foundHelper, self=this;
 
 
-    return "<div id=\"left\">\n  <h2 class=\"possible-channel\">HOSTS</h2>\n  <ul>\n    <li>PASCAL SPENGEMANN</li> \n    <li>NICELLE BEAUCHENE</li>\n    <li>NAOMI FISHER</li>\n    <li>MISHA NONOO</li>\n    <li>MICHAEL NEVIN</li> \n    <li>MATTHEW HIGGS</li> \n    <li>KELLY TAXTER</li>\n    <li>JOHNNY MISHEFF</li>\n    <li>JIM DRAIN</li>\n    <li>JAMES FUENTES</li>\n    <li>JACK HANLEY</li>\n    <li>HEATHER HUBBS</li> \n    <li>GLENN O'BRIEN</li>\n    <li>DAN NADEL</li>\n    <li>CASEY SPOONER</li> \n    <li>CASEY NEISTAT</li> \n    <li>CAROLYN RAMO</li>\n    <li>BRIDGET DONAHUE</li> \n    <li>BRIAN DEGRAW</li>\n    <li>AMIE SCALLY</li> \n    <li>ALEXANDER GILKES</li> \n    <li>ADAM ABDALLA</li>\n    <li>TAAVO SOMER</li>\n  </ul>\n  <h2>BBQ + DRINKS</h2>\n  <h2>ARTS + CRAFTS</h2>\n<!--   <h2>+</h2>\n  <h2>ARTS</h2>\n  <h2>+</h2>\n  <h2>CRAFTS</h2> -->\n  <br>\n  <h2>FREE</h2>\n  <h2>+</h2>\n  <h2>OPEN</h2>\n  <h2>TO</h2>\n  <h2>EVERYONE</h2>\n</div>\n\n<div id=\"middle\">\n  <h2>FRIENDS &amp; FAMILY PRESENTS</h1>\n  <br>\n  <img src=\"http://d2ss1gpcas6f9e.cloudfront.net/q/resize/250%3E/auto_orient/true/src/http%3A%2F%2Fs3.amazonaws.com%2Farena_images%2F55139%2Foriginal_2d2d0072a523da11744c9f053b97afef.png\">\n</div>\n\n<div id=\"content\">\n\n</div>\n\n<div id=\"right\">\n  <h3 class=\"possible-channel\">DJS</h3>\n  <ul>\n    <li>TIM BARBER</li>\n    <li>NELLEKE MCCOWAN</li>\n    <li>NEKTAR DE STAGNI</li>\n  </ul>\n  <h3 class=\"possible-channel\">GROUP BEACH PAINTING</h3>\n  <ul>\n    <li>TYSON REEDER</li>\n    <li>SCOTT REEDER</li>\n  </ul>\n  <h3 class=\"possible-channel\">INSTALLATIONS</h3>\n  <ul>\n    <li>KORAKRIT ARUNANONDCHAI</li>\n    <li>MOLLY LOWE</li>\n  </ul>\n  <h3 class=\"possible-channel\">NAIL ART</h3>\n  <ul>\n    <li>VANITY PROJECTS</li>\n  </ul>\n  <h3 class=\"possible-channel\">SCULPTURE +<br/>PERFORMANCE</h3>\n  <ul>\n    <li>JORY RABINOVITZ</li>\n    <li>PATRICK WALSH</li>\n    <li>NGUZUNGUZU</li>\n  </ul>\n  <h3 class=\"possible-channel\">INSTALLATIONS</h3>\n  <ul>\n    <li>SCOTT INGRAM</li>\n    <li></li>\n    <li>JUSTIN H. LONG</li>\n    <li>TIMOTHY STANLEY</li>\n    <li>P. SCOTT CUNNINGHAM</li>\n  </ul>\n  <h3 class=\"possible-channel\">MUSICAL PERFORMANCE</h3>\n  <ul>\n    <li>DENT MAY</li>\n  </ul>\n  <h3 class=\"possible-channel\"><a href=\"http://www.basfisherinvitational.com/WEIRD-MIAMI-bus-tour-wutz-uP\">WEIRD MIAMI BUS TOURS</a></h3>\n  <ul>\n    <li>BAS FISHER INVITATIONAL</li>\n    <li>departing from NADA</li>  \n  </ul>\n</div>\n\n<div id=\"bleft\"><a href=\"mailto:rsvp@michellefinocchi.com\">RSVP@MICHELLEFINOCCHI.COM</a></div>\n<div id=\"bmiddle\"><a href=\"http://are.na\">SITE POWERED BY ARENA</a></div>\n<div id=\"bright\">DEAUVILLE / 6701 COLLINS AVENUE</div>\n</div>\n";});
+    return "<div id=\"content\">\n\n</div>";});
 }});
 
 window.require.define({"views/view": function(exports, require, module) {

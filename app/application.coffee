@@ -1,7 +1,7 @@
 # The application bootstrapper.
 
 App =
-  title: 'NADA Pool Party'
+  title: 'Arena Holidays / 2012'
 
   initialize: ->
     Router = require 'lib/router'
