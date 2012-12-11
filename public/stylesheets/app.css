@@ -234,21 +234,6 @@ h3 {
 #collection .block .info p:first-child {
   margin-top: 10px;
 }
-#collection .block:hover {
-  cursor: pointer;
-}
-#collection .block:hover .info {
-  background: rgba(0,0,0,0.4);
-  -webkit-transition-duration: 0.4s;
-  -webkit-transition-duration: 0.4s;
-  -moz-transition-duration: 0.4s;
-  -o-transition-duration: 0.4s;
-  -ms-transition-duration: 0.4s;
-  transition-duration: 0.4s;
-}
-#collection .block:hover .info p {
-  display: block;
-}
 #scrim {
   top: 0;
   width: 100%;
