@@ -1,19 +1,15 @@
 module.exports = class CollectionView extends Backbone.View
   id: 'collection'
 
-
-
   initialize: ->
     @template = require "./templates/collection"
-
-    @collection.on 'add', @render
   
-  render: ->
-    @$el.append @template
+  render: =>
+    console.log 'rendering'
+    @$el.html @template
       channel : @model.toJSON()
       blocks  : @collection.toJSON()
 
-
-    setTimeout 
+    $('#content').html @el
 
     return this

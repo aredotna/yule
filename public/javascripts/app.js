@@ -109,6 +109,7 @@ window.require.define({"application": function(exports, require, module) {
 
 window.require.define({"collections/blocks": function(exports, require, module) {
   var Block, Blocks,
+    __bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; },
     __hasProp = {}.hasOwnProperty,
     __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
 
@@ -119,13 +120,26 @@ window.require.define({"collections/blocks": function(exports, require, module) 
     __extends(Blocks, _super);
 
     function Blocks() {
+      this.update = __bind(this.update, this);
       return Blocks.__super__.constructor.apply(this, arguments);
     }
 
     Blocks.prototype.model = Block;
 
+    Blocks.prototype.url = 'http://api.are.na/v2/channels/arena-holiday-party-2012';
+
+    Blocks.prototype.parse = function(data) {
+      return data.contents;
+    };
+
     Blocks.prototype.comparator = function(block) {
       return -block.get('position');
+    };
+
+    Blocks.prototype.update = function() {
+      return this.fetch({
+        add: true
+      });
     };
 
     Blocks.prototype._filtered = function(criteria) {
@@ -241,7 +255,7 @@ window.require.define({"lib/router": function(exports, require, module) {
           model: _this.base_channel,
           collection: _this.base_channel.contents
         });
-        return $('#content').html(_this.collectionView.render().el);
+        return _this.collectionView.render();
       });
     };
 
@@ -376,6 +390,7 @@ window.require.define({"models/model": function(exports, require, module) {
 
 window.require.define({"views/collection_view": function(exports, require, module) {
   var CollectionView,
+    __bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; },
     __hasProp = {}.hasOwnProperty,
     __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
 
@@ -384,23 +399,23 @@ window.require.define({"views/collection_view": function(exports, require, modul
     __extends(CollectionView, _super);
 
     function CollectionView() {
+      this.render = __bind(this.render, this);
       return CollectionView.__super__.constructor.apply(this, arguments);
     }
 
     CollectionView.prototype.id = 'collection';
 
     CollectionView.prototype.initialize = function() {
-      this.template = require("./templates/collection");
-      return this.collection.on('add', this.render);
+      return this.template = require("./templates/collection");
     };
 
     CollectionView.prototype.render = function() {
-      this.$el.append(this.template({
+      console.log('rendering');
+      this.$el.html(this.template({
         channel: this.model.toJSON(),
         blocks: this.collection.toJSON()
       }));
-      setTimeout;
-
+      $('#content').html(this.el);
       return this;
     };
 
@@ -527,7 +542,7 @@ window.require.define({"views/templates/collection": function(exports, require, 
     stack1 = (stack1 === null || stack1 === undefined || stack1 === false ? stack1 : stack1.url);
     if(typeof stack1 === functionType) { stack1 = stack1.call(depth0, { hash: {} }); }
     else if(stack1=== undef) { stack1 = helperMissing.call(depth0, "image.display.url", { hash: {} }); }
-    buffer += escapeExpression(stack1) + "\" onload=\"$(this).fadeIn(1000);\" />\n  ";
+    buffer += escapeExpression(stack1) + "\" />\n  ";
     return buffer;}
 
   function program4(depth0,data) {

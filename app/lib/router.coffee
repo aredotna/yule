@@ -19,4 +19,4 @@ module.exports = class Router extends Backbone.Router
         model       : @base_channel
         collection  : @base_channel.contents
         
-      $('#content').html @collectionView.render().el # render collectionView into #content
+      @collectionView.render()

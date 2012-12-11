@@ -3,8 +3,15 @@ Block = require "models/block"
 module.exports = class Blocks extends Backbone.Collection
   
   model: Block
+
+  url: 'http://api.are.na/v2/channels/arena-holiday-party-2012'
+  
+  parse: (data) -> data.contents
   
   comparator: (block) -> - block.get 'position'
+
+  update: =>
+    @fetch {add: true}
 
   _filtered: (criteria) ->
     new Blocks @filter(criteria)

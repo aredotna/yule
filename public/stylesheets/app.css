@@ -200,7 +200,6 @@ h3 {
 }
 #collection .block img {
   vertical-align: baseline;
-  display: none;
   cursor: default;
 }
 #collection .block .info {
